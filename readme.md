@@ -1,4 +1,7 @@
 # Clang crashes when compiling xds_cluster_resolver.cc from grpc project
+The crash occurs for release builds, not for debug builds.
+The crash is reproducible when compiling via command line.
+I did not observe the crash when building with CLion + clang.
 
 # Building on Windows
 ## Setup environment:
@@ -10,13 +13,13 @@
        and extract it to c:\Tools\Ninja\  
        Add to path: c:\Tools\Ninja
 1. Install clang 10.0.0
-    1. Download prebuild binaries for Windows 64 bit from https://releases.llvm.org/download.html
+    1. Download pre-build binaries for Windows 64 bit from https://releases.llvm.org/download.html
        and install it to default location c:\Program Files\LLVM\
        Add to path: C:\Program Files\LLVM\bin
 1. Checkout project: https://github.com/4vomAst/gRPC-clang.git
 1. git submodule init
 1. git submodule update --init --recursive
-1. run Build.ps1 multiple times till crash occurs
+1. run Build.ps1 multiple times till crash occurs, typically it takes 2 - 3 trials.
 
 ```
 Stack dump:

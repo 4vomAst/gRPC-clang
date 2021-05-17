@@ -1,10 +1,12 @@
+$BuildType = "Release"
+
 $CMakeArgs = @(
 "-S ./",
 "-G",
 "`"Ninja`"",
-"-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+"-DCMAKE_BUILD_TYPE=$BuildType",
 "-DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32"
-" -B `"out/win/x86`""
+" -B `"out`""
 )
 
 Start-Process -FilePath "cmake.exe" -ArgumentList $CMakeArgs -Wait -NoNewWindow
@@ -13,10 +15,10 @@ Write-Host "Build with Ninja"
 
 $CMakeArgs = @(
 "--build",
-"`"out/win/x86`"",
-"--config RelWithDebInfo"
+"`"out`"",
+"--config $BuildType"
 )
 
 Start-Process -FilePath "cmake.exe" -ArgumentList $CMakeArgs -Wait -NoNewWindow
 
-Remove-Item -Recurse -Force "out/win/x86"
+Get-ChildItem "out" -Recurse | Where{$_.Name -Match "\.obj|\.lib"} | Remove-Item
